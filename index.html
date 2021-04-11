@@ -1,1 +1,276 @@
-Hello World
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Diseñador Web para Custom Nations EU4</title>
+		<meta name="author" content="Montag">
+		<meta name="description" content="Web Designer para testear Custom Nation idea sets en Europa Universalis IV">
+		<meta name="keywords" content="EU4, Europa, Universalis, EUIV, Custom, Nation, Designer, Web">
+		<meta charset="UTF-8">
+
+		<link rel="stylesheet" href="styles/libs/jquery-ui.min.css">
+		<link rel="stylesheet" href="styles/libs/jquery-ui.structure.min.css">
+		<link rel="stylesheet" href="styles/libs/jquery-ui.theme.min.css">
+		<link rel="stylesheet" href="styles/libs/toastr.min.css">
+		<link rel="stylesheet" href="styles/styles-min.css">
+
+		<script type="text/javascript" src="scripts/libs/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="scripts/libs/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="scripts/libs/toastr.min.js"></script>
+		<script type="text/javascript" src="scripts/scripts-min.js"></script>
+		<script type="text/javascript" src="scripts/idea-definitions.js"></script>
+
+	</head>
+	<body>
+		<header>
+			<h1>Diseñador Web para Custom Nations EU4</h1>
+			<hr>
+
+			<div id="accordion">
+				<h4>Bienvenido!</h4>
+				<div>Este sitio fue creado con la intención de planear las National Ideas para las naciones custom de Europa Universalis IV, juego de Paradox Interactive. A veces es complicado planear una nación custom, teniendo en cuenta que los costos de las ideas varian en base a su posición en tu set, la cantidad de ideas de un tipo y el nivel de la idea. En un principio esto está planeado para organizar las naciones custom para partidas multiplayer con gente que no tenga los dlc, ya que es necesario que el host los tenga para que todos puedan usarlos. A futuro planeo agregar los costos de los tipos de gobierno y de los monarch points del ruler, consort y heredero. Este sitio esta basado en otro creado por el usuario ccjmk, lo único que hice fue actualizarle los valores, agregar ideas y traducir al español. Espero que lo disfrute, gracias por pasarse por acá. -Montag</div>
+				<h4>Cómo usar</h4>
+				<div>Por default, 200 puntos son asignados para usar; el mismo se puede cambiar a gusto. Los puntos reservados, por el momento, son para considerar aquellos que se van a gastar en nivel de la tech, gobierno y/o provincias. are for considering those to be used on tech-level, government or provinces. Selecciona de cada menu la idea que quieras y te mostará el modificador de nivel 1 y el costo; usa los botones a la derecha para cambiar el nivel de la idea. Más a la derecha, podes ver tu porcentaje actual de cada tipo de idea, intenta no pasarte del 50% (eso te da una penalidad en los costos).</div>
+			</div>
+		</header>
+
+		<div class="points-selection">
+			<div class="container" id="starting-points-container">
+				<label class="points-label">Puntos Iniciales:</label>
+				<select name="points-selector" class="clear-input" id="points-selector">
+					<option value"800">800 (Muy Fácil)</option>
+				   	<option value"400">400 (Fácil)</option>
+				   	<option value"200" selected>200 (Normal)</option>
+				   	<option value"100">100 (Difícil)</option>
+				   	<option value"50">50 (Muy Difícil)</option>
+	  			</select>
+
+	  			<input type="text" name="points-input" class="points-input clear-input" placeholder="Starting" id="starting-points-input">
+	  		</div>
+
+	  		<div class="container" id="reserved-points-container" title="Usa este espacio para reservar puntos para el territorio, monarch points, tech groups, y tipo de gobierno." >
+  				<label class="points-label">Puntos Reservados:</label>
+  				<input class="points-input clear-input" type="text" name="points-input" placeholder="Reserved" id="reserved-points-input">
+	  		</div>
+
+	  		<div class="container" id="available-points-container">
+  				<label class="points-label">Puntos Disponibles:</label>
+  				<input readonly id="available-points-value" class="points-input clear-input" value="0">
+	  		</div>
+			<hr>
+
+			</div>
+		</div>
+		<divclass="idea-area">
+			<div class="idea-selectors">
+				<div class="container">
+					<div class="idea-labels"><h2>Tradiciones:</h2></div>
+
+					<div class="idea-row">
+						<img class="selected-idea-type-icon" id="img-placeholder-1" src="img/point-placeholder.png" height="28" width="28">
+						<select id="idea-1-selector" class="idea-selector clear-input" placeholder="Select Tradition 1" tabindex="1"></select>
+
+						<input readonly class="points-input clear-input" id="value-modifier-idea-1" placeholder="Idea Modifier" tabindex="-1">
+						<input readonly class="points-input clear-input" id="value-cost-idea-1" placeholder="Idea Cost" tabindex="-1">
+
+						<div id="radio1" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-1-lv1" name="radio-idea-1"><label for="radio-idea-1-lv1">1</label>
+							<input type="radio" id="radio-idea-1-lv2" name="radio-idea-1"><label for="radio-idea-1-lv2">2</label>
+							<input type="radio" id="radio-idea-1-lv3" name="radio-idea-1"><label for="radio-idea-1-lv3">3</label>
+							<input type="radio" id="radio-idea-1-lv4" name="radio-idea-1"><label for="radio-idea-1-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-1">Randomizar</button>
+			  		</div>
+
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-2" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-2-selector" class="idea-selector clear-input" tabindex="2"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-2" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-2" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio2" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-2-lv1" name="radio-idea-2"><label for="radio-idea-2-lv1">1</label>
+							<input type="radio" id="radio-idea-2-lv2" name="radio-idea-2"><label for="radio-idea-2-lv2">2</label>
+							<input type="radio" id="radio-idea-2-lv3" name="radio-idea-2"><label for="radio-idea-2-lv3">3</label>
+							<input type="radio" id="radio-idea-2-lv4" name="radio-idea-2"><label for="radio-idea-2-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-2">Randomizar</button>
+			  		</div>
+
+			  		<div class="idea-labels"><h2>Ideas:</h2></div>
+
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-3" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-3-selector" class="idea-selector clear-input" tabindex="3"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-3" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-3" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio3" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-3-lv1" name="radio-idea-3"><label for="radio-idea-3-lv1">1</label>
+							<input type="radio" id="radio-idea-3-lv2" name="radio-idea-3"><label for="radio-idea-3-lv2">2</label>
+							<input type="radio" id="radio-idea-3-lv3" name="radio-idea-3"><label for="radio-idea-3-lv3">3</label>
+							<input type="radio" id="radio-idea-3-lv4" name="radio-idea-3"><label for="radio-idea-3-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-3">Randomizar</button>
+			  		</div>
+						
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-4" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-4-selector" class="idea-selector clear-input" tabindex="4"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-4" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-4" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio4" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-4-lv1" name="radio-idea-4"><label for="radio-idea-4-lv1">1</label>
+							<input type="radio" id="radio-idea-4-lv2" name="radio-idea-4"><label for="radio-idea-4-lv2">2</label>
+							<input type="radio" id="radio-idea-4-lv3" name="radio-idea-4"><label for="radio-idea-4-lv3">3</label>
+							<input type="radio" id="radio-idea-4-lv4" name="radio-idea-4"><label for="radio-idea-4-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-4">Randomizar</button>
+			  		</div>
+						
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-5" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-5-selector" class="idea-selector clear-input" tabindex="5"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-5" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-5" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio5" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-5-lv1" name="radio-idea-5"><label for="radio-idea-5-lv1">1</label>
+							<input type="radio" id="radio-idea-5-lv2" name="radio-idea-5"><label for="radio-idea-5-lv2">2</label>
+							<input type="radio" id="radio-idea-5-lv3" name="radio-idea-5"><label for="radio-idea-5-lv3">3</label>
+							<input type="radio" id="radio-idea-5-lv4" name="radio-idea-5"><label for="radio-idea-5-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-5">Randomizar</button>
+			  		</div>
+						
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-6" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-6-selector" class="idea-selector clear-input" tabindex="6"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-6" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-6" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio6" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-6-lv1" name="radio-idea-6"><label for="radio-idea-6-lv1">1</label>
+							<input type="radio" id="radio-idea-6-lv2" name="radio-idea-6"><label for="radio-idea-6-lv2">2</label>
+							<input type="radio" id="radio-idea-6-lv3" name="radio-idea-6"><label for="radio-idea-6-lv3">3</label>
+							<input type="radio" id="radio-idea-6-lv4" name="radio-idea-6"><label for="radio-idea-6-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-6">Randomizar</button>
+			  		</div>
+						
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-7" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-7-selector" class="idea-selector clear-input" tabindex="7"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-7" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-7" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio7" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-7-lv1" name="radio-idea-7"><label for="radio-idea-7-lv1">1</label>
+							<input type="radio" id="radio-idea-7-lv2" name="radio-idea-7"><label for="radio-idea-7-lv2">2</label>
+							<input type="radio" id="radio-idea-7-lv3" name="radio-idea-7"><label for="radio-idea-7-lv3">3</label>
+							<input type="radio" id="radio-idea-7-lv4" name="radio-idea-7"><label for="radio-idea-7-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-7">Randomizar</button>
+			  		</div>
+						
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-8" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-8-selector" class="idea-selector clear-input" tabindex="9"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-8" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-8" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio8" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-8-lv1" name="radio-idea-8"><label for="radio-idea-8-lv1">1</label>
+							<input type="radio" id="radio-idea-8-lv2" name="radio-idea-8"><label for="radio-idea-8-lv2">2</label>
+							<input type="radio" id="radio-idea-8-lv3" name="radio-idea-8"><label for="radio-idea-8-lv3">3</label>
+							<input type="radio" id="radio-idea-8-lv4" name="radio-idea-8"><label for="radio-idea-8-lv4">4</label>
+						</div>
+
+		  				<button class="ideaRandomizer" id="randomizer-8">Randomizar</button>
+			  		</div>
+						
+		  			<div class="idea-row">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-9" src="img/point-placeholder.png" height="28" width="28">
+		  				<select id="idea-9-selector" class="idea-selector clear-input" tabindex="9"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-9" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-9" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio9" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-9-lv1" name="radio-idea-9"><label for="radio-idea-9-lv1">1</label>
+							<input type="radio" id="radio-idea-9-lv2" name="radio-idea-9"><label for="radio-idea-9-lv2">2</label>
+							<input type="radio" id="radio-idea-9-lv3" name="radio-idea-9"><label for="radio-idea-9-lv3">3</label>
+							<input type="radio" id="radio-idea-9-lv4" name="radio-idea-9"><label for="radio-idea-9-lv4">4</label>
+						</div>
+
+		  				<button class="ideaRandomizer" id="randomizer-9">Randomizar</button>
+			  		</div>
+						
+		  			<div class="idea-labels"><h2>Ambición:</h2></div>
+					
+					<div class="idea-row">
+						<img class="selected-idea-type-icon" id="img-placeholder-10" src="img/point-placeholder.png" height="28" width="28">
+						<select id="idea-10-selector" class="idea-selector clear-input" tabindex="10"></select>
+
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-10" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-10" placeholder="Idea Cost" tabindex="-1">
+
+			  			<div id="radio10" class="ideaLvlRadioButtons">
+							<input type="radio" id="radio-idea-10-lv1" name="radio-idea-10"><label for="radio-idea-10-lv1">1</label>
+							<input type="radio" id="radio-idea-10-lv2" name="radio-idea-10"><label for="radio-idea-10-lv2">2</label>
+							<input type="radio" id="radio-idea-10-lv3" name="radio-idea-10"><label for="radio-idea-10-lv3">3</label>
+							<input type="radio" id="radio-idea-10-lv4" name="radio-idea-10"><label for="radio-idea-10-lv4">4</label>
+						</div>
+
+						<button class="ideaRandomizer" id="randomizer-10">Randomizar</button>
+			  		</div>
+						
+				</div>
+			</div>
+
+			<div class="idea-percentages">
+				<div class="container">
+					<div class="type-percentage-div">
+						<img src="img/adm-point-bg.png" alt="administrative points percentage" height="28" width="28">
+						<span class="type-percentage-lbl">ADM: </span>
+						<span class="point-percentage" id="total-idea-levels-adm">0%</span>
+					</div>
+					<div class="type-percentage-div">
+						<img src="img/dip-point-bg.png" alt="diplomatic points percentage" height="28" width="28">
+						<span class="type-percentage-lbl">DIP:</span>
+						<span class="point-percentage" id="total-idea-levels-dip">0%</span>
+					</div>
+					<div class="type-percentage-div">
+						<img src="img/mil-point-bg.png" alt="military points percentage" height="28" width="28">
+						<span class="type-percentage-lbl">MIL</span>
+						<span class="point-percentage" id="total-idea-levels-mil">0%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<footer>
+			<div class="container">
+				<hr>
+				<p>Todos los valores usados fueron tomados de <a href="http://www.eu4wiki.com">EU4 Wiki</a>.</p>
+				<p>Reservados todos los derechos a <a href="https://www.paradoxplaza.com/">Paradox Interactive</a> y/o a quien pertenezcan.</p>
+				<p>Sitio hosteado en <a href="https://pages.github.com/">GitHub Pages</a></p>
+			</div>
+		</footer>
+	</body>
+</html>
+
